@@ -1,13 +1,12 @@
 <?php
-require_once 'connexion.php';
+require_once __DIR__ . '/../connexion.php';
 
 function createProduit($reference, $designation, $prix, $quantite_stock, $categorie, $date_peremption, $promotion, $image_path) {
     global $conn;
-    $sql = "INSERT INTO produits (reference, designation, prix, quantite_stock, categorie, date_peremption, promotion, image_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, 'ssdissss', $reference, $designation, $prix, $quantite_stock, $categorie, $date_peremption, $promotion, $image_path);
-    mysqli_stmt_execute($stmt);
-    return mysqli_stmt_affected_rows($stmt);
+    $sql = "INSERT INTO produits (reference, designation, prix, quantite_stock, categorie, date_peremption, promotion, image_path) VALUES ('$reference', '$designation', '$prix', '$quantite_stock', '$categorie', '$date_peremption', '$promotion', '$image_path')";
+    mysqli_query($conn, $sql);
+
+    return ;
 }
 
 function readProduit($id) {
@@ -22,11 +21,11 @@ function readProduit($id) {
 
 function updateProduit($id, $reference, $designation, $prix, $quantite_stock, $categorie, $date_peremption, $promotion, $image_path) {
     global $conn;
-    $sql = "UPDATE produits SET reference = ?, designation = ?, prix = ?, quantite_stock = ?, categorie = ?, date_peremption = ?, promotion = ?, image_path = ? WHERE id = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, 'ssdissssi', $reference, $designation, $prix, $quantite_stock, $categorie, $date_peremption, $promotion, $image_path, $id);
-    mysqli_stmt_execute($stmt);
-    return mysqli_stmt_affected_rows($stmt);
+
+    $query = "UPDATE produits SET reference = '$reference', designation = '$designation', prix = '$prix', quantite_stock = '$quantite_stock', categorie = '$categorie', date_peremption = '$date_peremption', promotion = '$promotion', image_path = '$image_path' WHERE id = $id";
+    $res = mysqli_query($conn, $query);
+    return ;
+
 }
 
 function deleteProduit($id) {

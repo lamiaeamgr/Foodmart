@@ -1,11 +1,11 @@
 <?php
 session_start();
-include('../Acces_BD/Models/Administrateur.php');
-include('../Acces_BD/Models/Client.php');
-include('../Acces_BD/Models/Vendeur.php');
+include('../../Acces_BD/Models/Administrateur.php');
+include('../../Acces_BD/Models/Client.php');
+include('../../Acces_BD/Models/Vendeur.php');
 
 // Ensure the user is logged in as an admin
-if (!isset($_SESSION['email']) || $_SESSION['user_type'] != 'administrateur') {
+if (!isset($_SESSION['email']) ) {
     header("Location: ../../IHM/Public/login.php");
     exit;
 }
@@ -43,6 +43,11 @@ switch ($action) {
             header("Location: ../../IHM/administrateur/user_management.php");
             exit;
         }
+        break;
+    case 'list_users':
+        $users = listAllUsers();
+        $_SESSION['list_users'] = $users;
+        header("Location: ../../IHM/administrateur/user_management.php");
         break;
 
     default:

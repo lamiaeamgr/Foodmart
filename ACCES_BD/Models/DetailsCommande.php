@@ -1,5 +1,5 @@
 <?php
-require_once 'connexion.php';
+require_once __DIR__ . '/../connexion.php';
 
 function createDetailsCommande($commande_id, $produit_id, $quantite, $prix_unitaire) {
     global $conn;

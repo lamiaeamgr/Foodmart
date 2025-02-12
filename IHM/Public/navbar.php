@@ -8,13 +8,15 @@
             <ul class="navbar-nav ml-auto">
                 <?php if (isset($_SESSION['email'])): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="../IHM/acheteur/index.php">Accueil</a>
+                        <a class="nav-link" href="../acheteur/index.php">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../IHM/acheteur/profile.php">Profil</a>
+                        <?php if ($_SESSION['user_type']=='client'){ ?>
+                        <a class="nav-link" href="../acheteur/profile.php">Profil</a>
+                        <?php } ?>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../IHM/acheteur/logout.php">Déconnexion</a>
+                        <a class="nav-link" href="../../Gestion_Actions/logout.php">Déconnexion</a>
                     </li>
                 <?php else: ?>
                     <li class="nav-item">

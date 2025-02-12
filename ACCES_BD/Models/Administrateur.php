@@ -1,5 +1,5 @@
 <?php
-require_once 'connexion.php';
+require_once __DIR__ . '/../connexion.php';
 
 function createAdministrateur($nom, $email, $mot_de_passe) {
     global $conn;
@@ -44,4 +44,26 @@ function listAllAdministrateurs() {
     $result = mysqli_query($conn, $sql);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
+function listAllUsers() {
+    global $conn;
+    
+    $sql = "
+        SELECT id, nom, email, 'administrateur' AS type FROM administrateurs
+        UNION 
+        SELECT id, nom, email, 'vendeur' AS type FROM vendeurs
+        UNION 
+        SELECT id, nom, email, 'client' AS type FROM clients
+    ";
+
+    $result = mysqli_query($conn, $sql);
+    
+    if (!$result) {
+        die("Erreur SQL : " . mysqli_error($conn));
+    }
+    
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+
+
 ?>

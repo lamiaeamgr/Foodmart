@@ -1,5 +1,5 @@
 <?php
-require_once 'connexion.php';
+require_once __DIR__ . '/../connexion.php';
 
 function createClient($nom, $email, $mot_de_passe, $telephone, $adresse, $points) {
     global $conn;
@@ -24,7 +24,7 @@ function updateClient($id, $nom, $email, $mot_de_passe, $telephone, $adresse, $p
     global $conn;
     $sql = "UPDATE clients SET nom = ?, email = ?, mot_de_passe = ?, telephone = ?, adresse = ?, points = ? WHERE id = ?";
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, 'sssssii', $nom, $email, password_hash($mot_de_passe, PASSWORD_DEFAULT), $telephone, $adresse, $points, $id);
+    mysqli_stmt_bind_param($stmt, 'sssssii', $nom, $email, $mot_de_passe, $telephone, $adresse, $points, $id);
     mysqli_stmt_execute($stmt);
     return mysqli_stmt_affected_rows($stmt);
 }
@@ -44,4 +44,19 @@ function listAllClients() {
     $result = mysqli_query($conn, $sql);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
+
+function listAllOrdersForClient($client_id) {
+    global $conn;
+    $sql = "SELECT * FROM commandes WHERE client_id = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, 'i', $client_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+function getClientById($id) {
+    return readClient($id);
+}
+
 ?>

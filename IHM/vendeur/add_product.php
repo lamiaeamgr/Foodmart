@@ -11,14 +11,18 @@ if (!isset($_SESSION['email'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter un Produit</title>
-    <link rel="stylesheet" href="../Public/css/bootstrap.min.css">
+    <!-- Link to Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Add Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="../Public/css/style.css">
 </head>
 <body class="bg-warning">
     <?php include('../Public/navbar.php'); ?>
     <div class="container mt-5">
         <h1 class="text-center">Ajouter un Produit</h1>
-        <form action="Gestion_Actions/vendeur/vendeur_actions.php?action=add_product" method="POST">
+        <form action="../../Gestion_Actions/vendeur/vendeur_actions.php?action=add_product" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="reference">Référence</label>
                 <input type="text" class="form-control" id="reference" name="reference" required>
@@ -48,8 +52,8 @@ if (!isset($_SESSION['email'])) {
                 <input type="number" step="0.01" class="form-control" id="promotion" name="promotion">
             </div>
             <div class="form-group">
-                <label for="image_path">Chemin de l'Image</label>
-                <input type="text" class="form-control" id="image_path" name="image_path">
+                <label for="image_upload">Choisir une Image</label>
+                <input type="file" class="form-control" id="image_upload" name="image_upload" accept="image/*" required>
             </div>
             <button type="submit" class="btn btn-success">Ajouter</button>
         </form>

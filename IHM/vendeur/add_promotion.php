@@ -11,19 +11,23 @@ if (!isset($_SESSION['email'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter une Promotion</title>
-    <link rel="stylesheet" href="../Public/css/bootstrap.min.css">
+    <!-- Link to Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Add Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="../Public/css/style.css">
 </head>
 <body class="bg-warning">
     <?php include('../Public/navbar.php'); ?>
     <div class="container mt-5">
         <h1 class="text-center">Ajouter une Promotion</h1>
-        <form action="Gestion_Actions/vendeur/vendeur_actions.php?action=add_promotion" method="POST">
+        <form action="../../Gestion_Actions/vendeur/vendeur_actions.php?action=add_promotion" method="POST">
             <div class="form-group">
                 <label for="produit_id">Produit</label>
                 <select class="form-control" id="produit_id" name="produit_id" required>
                     <?php
-                    $products = listAllProduits();
+                    $products = $_SESSION['list_products'];
                     foreach ($products as $product) {
                         echo "<option value='{$product['id']}'>{$product['designation']}</option>";
                     }

@@ -1,5 +1,5 @@
 <?php
-require_once 'connexion.php';
+require_once __DIR__ . '/../connexion.php';
 
 function createCoupon($client_id, $points_gagnes, $points_utilises, $date_expiration) {
     global $conn;

@@ -4,6 +4,12 @@ if (!isset($_SESSION['email']) || $_SESSION['user_type'] != 'vendeur') {
     header("Location: ../Public/login.php");
     exit;
 }
+$orders = isset($_SESSION['list_orders']) ? $_SESSION['list_orders'] : null;
+
+if (!$orders) {
+    header("Location: ../../Gestion_Actions/vendeur/vendeur_actions.php?action=list_orders");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -11,7 +17,11 @@ if (!isset($_SESSION['email']) || $_SESSION['user_type'] != 'vendeur') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commandes</title>
-    <link rel="stylesheet" href="../Public/css/bootstrap.min.css">
+    <!-- Link to Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Add Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="../Public/css/style.css">
 </head>
 <body class="bg-warning">
@@ -32,7 +42,7 @@ if (!isset($_SESSION['email']) || $_SESSION['user_type'] != 'vendeur') {
             <tbody>
                 <?php
                 // Fetch orders from the database
-                $orders = listAllOrders();
+                // $orders = listAllOrders();
                 foreach ($orders as $order) {
                     echo "<tr>
                             <td>{$order['id']}</td>

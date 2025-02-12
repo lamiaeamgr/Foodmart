@@ -1,5 +1,5 @@
 <?php
-require_once 'connexion.php';
+require_once __DIR__ . '/../connexion.php';
 
 function createPromotion($produit_id, $reduction, $date_debut, $date_fin) {
     global $conn;

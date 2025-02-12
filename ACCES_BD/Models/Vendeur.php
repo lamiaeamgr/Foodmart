@@ -1,5 +1,5 @@
 <?php
-require_once 'connexion.php';
+require_once __DIR__ . '/../connexion.php';
 
 function createVendeur($nom, $email, $mot_de_passe, $telephone, $adresse) {
     global $conn;
