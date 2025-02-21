@@ -1,0 +1,132 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+/* Background Image */
+.background {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    z-index: -1;
+}
+
+/* Welcome Text */
+.welcome-text {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.welcome-text:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.icon i {
+    font-size: 24px;
+}
+
+/* Login Form */
+.login-form {
+    position: absolute;
+    top: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    width: 300px;
+    padding: 20px;
+    transition: top 0.5s ease;
+}
+
+.form-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #333;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Make navbar more transparent and apply a blur */
+.navbar {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
+}
+
+/* Custom active link color */
+.navbar-nav .nav-link.active {
+    background-color: #f0ad4e; /* Slightly darker warning color */
+}
+
+/* Custom hover effect for links */
+.navbar-nav .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff !important;
+}
+
+/* Custom styles for the orders page */
+
+body {
+    background-color: #f9f9f9;
+}
+
+.btn-warning {
+    background-color: #ffc107; /* Bootstrap warning yellow */
+    color: black;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800; /* Darker warning yellow on hover */
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table thead {
+    background-color: #ffc107; /* Yellow header using Bootstrap warning color */
+    color: black;
+}
+
+.table tbody tr:hover {
+    background-color: #fff3cd; /* Light yellow hover effect */
+}
+
+.actions a {
+    margin-right: 10px;
+}
