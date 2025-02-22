@@ -195,7 +195,6 @@ if (!isset($_SESSION['email'])) {
 
                         <form action="../../Gestion_Actions/administrateur/admin_actions.php?action=add_user"
                             method="POST" class="form-body" enctype="multipart/form-data">
-                            <!-- <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>"> -->
 
                             <!-- Nom Complet -->
                             <div class="input-group-custom">
@@ -251,14 +250,6 @@ if (!isset($_SESSION['email'])) {
                                 </div>
                             </div>
 
-                            <!-- Photo de profil -->
-                            <!-- <div class="mb-4">
-                                <label class="form-label">Photo de profil</label>
-                                <div class="file-upload-wrapper">
-                                    <input type="file" class="form-control" name="profile_pic" accept="image/*">
-                                    <div class="preview-area mt-2"></div>
-                                </div>
-                            </div> -->
 
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-primary btn-lg">

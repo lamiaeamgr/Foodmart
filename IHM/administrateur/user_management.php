@@ -11,7 +11,6 @@ if (!$users) {
     exit;
 }
 
-// Filtrer les utilisateurs par rôle
 $selected_role = isset($_GET['role']) ? $_GET['role'] : 'all';
 $filtered_users = ($selected_role === 'all') 
     ? $users 

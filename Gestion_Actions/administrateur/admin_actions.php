@@ -4,13 +4,12 @@ include('../../Acces_BD/Models/Administrateur.php');
 include('../../Acces_BD/Models/Client.php');
 include('../../Acces_BD/Models/Vendeur.php');
 
-// Ensure the user is logged in as an admin
 if (!isset($_SESSION['email'])) {
     header("Location: ../../IHM/Public/login.php");
     exit;
 }
 
-$action = $_GET['action'] ?? ''; // Capture the action from the URL
+$action = $_GET['action'] ?? '';
 
 switch ($action) {
     case 'add_user':
@@ -26,7 +25,6 @@ switch ($action) {
                 createVendeur($nom, $email, $mot_de_passe, '', '');
             }
 
-            // Refresh the list of users in the session
             $users = listAllUsers();
             $_SESSION['list_users'] = $users;
 
@@ -36,7 +34,6 @@ switch ($action) {
         break;
 
     case 'delete_user':
-        
         if (isset($_GET['id'], $_GET['user_type'])) {
             $id = intval($_GET['id']);
             $user_type = $_GET['user_type'];
@@ -47,7 +44,6 @@ switch ($action) {
                 deleteVendeur($id);
             }
 
-            // Refresh the list of users in the session
             $users = listAllUsers();
             $_SESSION['list_users'] = $users;
 
@@ -66,4 +62,3 @@ switch ($action) {
         header("Location: ../../IHM/administrateur/index.php");
         exit;
 }
-?>

@@ -1,8 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['email'])) {
-    // header("Location: ../../index.php");
-    echo "lhabs";
+    header("Location: ../../index.php");
     exit;
 }
 
@@ -13,16 +12,11 @@ if (!$product_id) {
 }
 
 $product_to_edit = isset($_SESSION['product_to_edit']) ? $_SESSION['product_to_edit'] : null;
-// var_dump($_SESSION['product_to_edit']);
 if (!$product_to_edit || $product_to_edit['id'] != $product_id) {
     header("Location: ../../Gestion_Actions/vendeur/vendeur_actions.php?action=get_product&&id=$product_id");
     exit;
 }
 
-
-
-// Fetch product details
-// $product = getProduitById($product_id);
 ?>
 <!DOCTYPE html>
 <html lang="fr">

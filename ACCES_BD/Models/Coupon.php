@@ -11,8 +11,6 @@ function createCoupon($client_id, $code, $valeur, $type, $points, $date_expirati
     $sql = "INSERT INTO coupons (client_id, code, valeur, `type`, points_utilises, date_expiration) 
             VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $sql);
-    
-    // Corrected binding parameters: "isssis"
     mysqli_stmt_bind_param($stmt, 'isssis', $client_id, $code, $valeur, $type, $points, $date_expiration);
     
     mysqli_stmt_execute($stmt);

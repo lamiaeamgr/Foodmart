@@ -233,13 +233,11 @@ if (!$products) {
     <?php include('../Public/navbar.php'); ?>
     <div class="client-portal">
     <div class="container">
-        <!-- En-tête holographique -->
         <div class="portal-header">
             <h1 class="neon-text flicker">Bienvenue, <span class="glowing-text"><?= explode('@', $_SESSION['email'])[0] ?></span></h1>
             <p class="subtitle-shimmer">Votre espace personnel</p>
         </div>
 
-        <!-- Cartes d'interface futuristes -->
         <div class="cyber-grid">
             <a href="orders.php" class="cyber-card orders-card">
                 <div class="card-glow"></div>
@@ -341,25 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-    <!-- <script>
-        document.querySelectorAll('.quantity-right-plus').forEach(button => {
-            button.addEventListener('click', function () {
-                const quantityInput = this.closest('.product-qty').querySelector('input');
-                let currentValue = parseInt(quantityInput.value);
-                quantityInput.value = currentValue + 1;
-            });
-        });
 
-        document.querySelectorAll('.quantity-left-minus').forEach(button => {
-            button.addEventListener('click', function () {
-                const quantityInput = this.closest('.product-qty').querySelector('input');
-                let currentValue = parseInt(quantityInput.value);
-                if (currentValue > 1) {
-                    quantityInput.value = currentValue - 1;
-                }
-            });
-        });
-    </script> -->
 </body>
 
 </html>

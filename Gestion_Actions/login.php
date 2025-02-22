@@ -15,7 +15,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $query_client = "SELECT * FROM clients WHERE email='$email'";
     $result_client = mysqli_fetch_assoc(mysqli_query($conn, $query_client));
 
-    // Verify admin login
     if ($result_admin && $password == $result_admin['mot_de_passe']) {
         $_SESSION['email'] = $result_admin['email'];
         $_SESSION['isAdmin'] = 1; 
@@ -24,7 +23,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         header("Location: ../IHM/administrateur/index.php"); 
         exit;
     }
-    // Verify vendeur login
     else if ($result_vendeur && $password == $result_vendeur['mot_de_passe']) {
         $_SESSION['email'] = $result_vendeur['email'];
         $_SESSION['isAdmin'] = 0; 
@@ -33,7 +31,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         header("Location: ../IHM/vendeur/index.php"); 
         exit;
     }
-    // Verify client login
     else if ($result_client && $password == $result_client['mot_de_passe']) {
         $_SESSION['email'] = $result_client['email'];
         $_SESSION['isAdmin'] = 0; 

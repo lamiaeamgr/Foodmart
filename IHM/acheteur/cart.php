@@ -220,7 +220,6 @@ foreach ($cart as $item) {
     <div class="cart-container">
         <h1 class="cart-title"><i class="bi bi-cart3 floating-icon"></i> Mon Panier</h1>
 
-        <!-- Display Coupon and Points Section -->
         <div class="card mb-4">
             <div class="card-body">
                 <h5 class="card-title">Points de Fidélité</h5>
@@ -234,7 +233,6 @@ foreach ($cart as $item) {
             </div>
         </div>
 
-        <!-- Cart Items -->
         <?php foreach ($cart as $item): ?>
             <div class="cart-item">
                 <img src="<?= $item['image_path'] ?>" class="product-image" alt="Produit">
@@ -266,7 +264,6 @@ foreach ($cart as $item) {
             </div>
         <?php endforeach; ?>
 
-        <!-- Total and Checkout Button -->
         <div class="text-center mt-5">
             <h4 class="total-price">Total du Panier : <span id="cart-total"><?= $total ?></span> DH</h4>
             <button class="btn checkout-btn" data-bs-toggle="modal" data-bs-target="#checkoutModal">
@@ -275,7 +272,6 @@ foreach ($cart as $item) {
         </div>
     </div>
 
-    <!-- Checkout Modal -->
     <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -285,7 +281,6 @@ foreach ($cart as $item) {
                 </div>
                 <div class="modal-body">
                     <form id="checkoutForm" action="../../Gestion_Actions/acheteur/acheteur_actions.php?action=add_order" method="POST">
-                        <!-- Hidden fields for product IDs and quantities -->
                         <input type="hidden" name="id_cart" value="">
 
                         <?php foreach ($cart as $item): ?>
@@ -294,7 +289,6 @@ foreach ($cart as $item) {
                             <input type="hidden" name="prices[]" value="<?= $item['prix'] * $item['quantite'] ?>">
                         <?php endforeach; ?>
 
-                        <!-- Shared delivery details -->
                         <div class="mb-3">
                             <label for="date_livraison" class="form-label">Date de Livraison</label>
                             <input type="date" class="form-control" id="date_livraison" name="date_livraison" required>
@@ -307,7 +301,6 @@ foreach ($cart as $item) {
                             </select>
                         </div>
 
-                        <!-- Apply Coupon Section -->
                         <div class="mb-3">
                             <label for="coupon_code" class="form-label">Code Coupon</label>
                             <div class="coupon-input-group">
@@ -338,7 +331,6 @@ foreach ($cart as $item) {
 
     <script>
         $(document).ready(function () {
-            // Handle quantity change
             $('.quantity-input').on('change', function () {
                 const productId = $(this).data('product-id');
                 const newQuantity = $(this).val();
@@ -361,7 +353,6 @@ foreach ($cart as $item) {
                 });
             });
 
-            // Handle coupon application
             $('#apply-coupon-btn').on('click', function () {
                 const couponCode = $('#coupon_code').val();
                 if (!couponCode) {

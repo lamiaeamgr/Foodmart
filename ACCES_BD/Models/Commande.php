@@ -8,7 +8,7 @@ function createCommande($client_id, $date_commande, $statut, $total, $type_livra
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, 'isssss', $client_id, $date_commande, $statut, $total, $type_livraison, $date_livraison);
     mysqli_stmt_execute($stmt);
-    return mysqli_insert_id($conn); // Return the ID of the newly created order
+    return mysqli_insert_id($conn); 
 }
 
 function addDetailCommande($commande_id, $produit_id, $quantite, $prix_unitaire) {
