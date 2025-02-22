@@ -210,7 +210,7 @@ body {
                     
                     <div class="col-md-4">
                         <h5 class="mb-3"><i class="bi bi-calendar-date"></i> Date</h5>
-                        <div class="fs-5 text-dark"><?= date('d/m/Y H:i', strtotime($order['date_commande'])) ?></div>
+                        <div class="fs-5 text-dark"><?= date('d/m/Y', strtotime($order['date_commande'])) ?></div>
                     </div>
                     
                     <div class="col-md-4">

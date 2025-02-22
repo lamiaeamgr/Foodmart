@@ -309,7 +309,7 @@ if (!$products) {
                                                     <input type="hidden" name="produit_id" value="<?= $product['id']; ?>">
                                                     <div class="input-group product-qty">
                                                         <!-- <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">-</button> -->
-                                                        <input type="number" name="quantite" class="form-control input-number" min="1">
+                                                        <input type="number" name="quantite" class="form-control input-number" min="1" default="1" value="1">
                                                         <!-- <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">+</button> -->
                                                     </div>
                                                     <button type="submit" class="btn btn-success mt-2 w-100">Ajouter au panier</button>

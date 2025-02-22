@@ -34,6 +34,14 @@ switch ($action) {
         // Redirect to the IHM profile page
         header("Location: ../../IHM/acheteur/profile.php");
         exit;
+    case 'view_points':
+        // Use the model function to fetch client details
+        $client = readClient($_SESSION['user_id'], $_SESSION['user_type']);
+        // Store the client details in the session
+        $_SESSION['client'] = $client;
+        // Redirect to the IHM profile page
+        header("Location: ../../IHM/acheteur/coupons.php");
+        exit;
 
     case 'view_orders':
         $client_id = $_SESSION['user_id'];
@@ -49,9 +57,31 @@ switch ($action) {
                 $prices = $_POST['prices'];        // Array of prices
                 $delivery_date = $_POST['date_livraison'];
                 $delivery_type = $_POST['type_livraison'];
-                $total = array_sum($prices);
+                $total = array_sum($prices);       // Calculate total order amount
                 $user_id = $_SESSION['user_id'];
-    
+        
+                // Check if a coupon is applied
+                if (isset($_POST['coupon_code']) && !empty($_POST['coupon_code'])) {
+                    $coupon_code = $_POST['coupon_code'];
+                    $coupon = getCouponByCode($coupon_code);         
+                    if ($coupon && $coupon['client_id'] == $user_id && $coupon['date_expiration'] > date('Y-m-d')) {
+                        // Apply coupon discount
+                        if ($coupon['type'] == 'montant') {
+                            $total -= $coupon['valeur']; // Deduct fixed amount
+                        } elseif ($coupon['type'] == 'pourcentage') {
+                            $total *= (1 - $coupon['valeur'] / 100); // Deduct percentage
+                        }
+        
+                        // Mark the coupon as used
+                        useCoupon($coupon['id']);
+                    } else {
+                        // Invalid or expired coupon
+                        $_SESSION['error'] = "Coupon invalide ou expiré.";
+                        header("Location: ../../IHM/acheteur/cart.php");
+                        exit;
+                    }
+                }
+        
                 // Create the order
                 $commande_id = createCommande(
                     client_id: $user_id,
@@ -61,19 +91,24 @@ switch ($action) {
                     type_livraison: $delivery_type,
                     date_livraison: $delivery_date
                 );
-    
+        
                 if ($commande_id) {
                     // Add items to the order
                     foreach ($product_ids as $index => $product_id) {
                         addDetailCommande($commande_id, $product_id, $quantities[$index], $prices[$index]);
                     }
-                    unset($_SESSION['list_orders_clt']);
+        
                     // Clear the cart
                     unset($_SESSION['cart']);
+                    unset($_SESSION['list_orders_clt']);
                     foreach ($product_ids as $product_id) {
                         deleteCart($product_id);
                     }
-    
+        
+                    // Award loyalty points (e.g., 1 point for every 10 DH spent)
+                    $points_earned = floor($total / 10); // Adjust the ratio as needed
+                    updateClientPoints($user_id, $points_earned);
+        
                     // Redirect to the orders page
                     header("Location: ../../IHM/acheteur/orders.php");
                     exit;
@@ -82,7 +117,6 @@ switch ($action) {
                 }
             }
             break;
-    
         case 'list_orders_clt':
             $client_id = $_SESSION['user_id'];
             $orders = listAllCommandesForClient($client_id);
@@ -110,6 +144,22 @@ switch ($action) {
             }
             break;
         }
+        case 'update_cart_quantity':
+            if (isset($_POST['product_id'], $_POST['quantity'])) {
+                $product_id = $_POST['product_id'];
+                $quantity = $_POST['quantity'];
+        
+                // Update the quantity in the cart
+                foreach ($_SESSION['cart'] as &$item) {
+                    if ($item['id'] == $product_id) {
+                        $item['quantite'] = $quantity;
+                        break;
+                    }
+                }
+                // header("Location: ../../IHM/acheteur/cart.php");
+                exit;
+            }
+            break;
     case 'use_coupon':
         if (isset($_POST['coupon_id'])) {
             $coupon_id = $_POST['coupon_id'];
@@ -189,7 +239,32 @@ switch ($action) {
             header("Location: ../../IHM/acheteur/edit_profile.php?status=missing");
             exit;
         }
+        case 'exchange_points':
+            if (isset($_POST['points'])) {
+                $points = $_POST['points'];
+                $user_id = $_SESSION['user_id'];
         
+                // Fetch client's current points
+                $client = getClientById($user_id);
+                if ($client['points'] >= $points) {
+                    // Deduct points
+                    updateClientPoints($user_id, -$points);
+        
+                    // Create a coupon (e.g., 100 points = 20 DH coupon)
+                    $coupon_value = floor($points / 100) * 20;
+                    $coupon_code = generateCouponCode(); // Implement this function
+                    createCoupon($user_id, $coupon_code, $coupon_value, 'montant',$points, date('Y-m-d', strtotime('+30 days')));
+        
+                    $_SESSION['success'] = "Coupon généré avec succès!";
+                } else {
+                    $_SESSION['error'] = "Points insuffisants.";
+                }
+                unset($_SESSION['client']);
+                unset($_SESSION['coupons']);
+                header("Location: ../../IHM/acheteur/coupons.php");
+                exit;
+            }
+            break;
     default:
         header("Location: ../../IHM/acheteur/index.php");
         exit;
